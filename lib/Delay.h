@@ -1,5 +1,5 @@
-#ifndef _HERMES_DELAY_
-#define _HERMES_DELAY_
+#ifndef _LIB_DELAY_
+#define _LIB_DELAY_
 
 #include <Arduino.h> 
 
@@ -11,8 +11,8 @@ class Delay {
     bool ok();
 
   private:
-    unsigned long period;
-    unsigned long lastTime;
+    unsigned long m_period;
+    unsigned long m_start;
 };
 
-#endif // _HERMES_DELAY_
+#endif  // _LIB_DELAY_

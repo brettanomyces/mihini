@@ -1,5 +1,5 @@
-#ifndef _HERMES_RELAY_
-#define _HERMES_RELAY_
+#ifndef _LIB_RELAY_
+#define _LIB_RELAY_
 
 #include <Arduino.h>
 #include "Delay.h"
@@ -22,4 +22,4 @@ class Relay {
     Delay m_delay;
 };
 
-#endif // _HERMES_RELAY_
+#endif // _LIB_RELAY_
