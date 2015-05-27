@@ -6,7 +6,10 @@
 class Delay {
 
   public:
-    Delay(long);
+    // default constructor
+    Delay();
+
+    void setup(long);
     void reset();
     bool ok();
 

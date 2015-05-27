@@ -1,9 +1,12 @@
 #include "Button.h"
 
-Button::Button(int _pin) {
+Button::Button(){
+}
+
+void Button::setup(int _pin) {
   m_pin = _pin;
-  pinMode(pin, INPUT);
-  digitalWrite(pin, HIGH);
+  pinMode(m_pin, INPUT);
+  digitalWrite(m_pin, HIGH);
   m_previousState = HIGH;
 }
 

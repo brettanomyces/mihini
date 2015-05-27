@@ -1,6 +1,10 @@
 #include "Delay.h"
 
-Delay::Delay(long _period) {
+Delay::Delay() {
+}
+
+// this method should be called in the setup method of the ino file
+void Delay::setup(long _period){
   m_period = _period;
   m_start = 0;
 }

@@ -3,15 +3,16 @@
 
 #include <Arduino.h> 
 
-class button {
+class Button {
 
   public:
-    button(int);
+    Button();
+    void setup(int);
     bool wasPressed();
 
   private:
-    int pin;
-    int previousState; // either HIGH or LOW
+    int m_pin;
+    int m_previousState; // either HIGH or LOW
 };
 
 #endif  // _LIB_BUTTON_

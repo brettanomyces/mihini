@@ -1,13 +1,22 @@
 #include "Relay.h"
 
-Relay::Relay(int pin, String name, long delay) : m_delay(delay){
-  m_pin = pin;
-  m_name = name;
+Relay::Relay(){
+}
+
+void Relay::setup(int _pin){
+  setup(_pin, "relay", 0);
+}
+
+void Relay::setup(int _pin, String _name, long _delay) {
+  m_name = _name;
+
+  m_pin = _pin;
   pinMode(m_pin, OUTPUT);
-  // start in off state
   digitalWrite(m_pin, HIGH);
+
   m_on = false;
-  // reset delay
+
+  m_delay.setup(_delay);
   m_delay.reset();
 }
 
