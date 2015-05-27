@@ -15,12 +15,14 @@ If a user presses the off button the relay will turn off.
 
 ## Build
 
+The build file is written for fish shell, to execute it:
+
 ```
-arduino --verify --verbose mihini/mihini.ino --pref build.path=build --pref sketchbook.path=.
+. build.fish
 ```
 
 ## Upload
 
 ```
-arduino --upload mihini/mihini.ino --pref build.path=build --pref sketchbook.path=.
+. upload.fish
 ```
