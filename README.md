@@ -1,4 +1,4 @@
-[Mīhini Whakamaroke](http://www.maoridictionary.co.nz/search?idiom=&phrase=&proverb=&loan=&keywords=m%C4%ABhini+whakamaroke)
+# [Mīhini Whakamaroke](http://www.maoridictionary.co.nz/search?idiom=&phrase=&proverb=&loan=&keywords=m%C4%ABhini+whakamaroke)
 
 A simple switch that turns off after a period of X minutes.
 
