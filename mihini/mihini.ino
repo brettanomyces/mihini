@@ -14,18 +14,18 @@ int ON_PIN = 2;
 int OFF_PIN = 3;
 int RELAY_PIN = 4;
 //long ON_PERIOD = 5400000;  // 90 minutes
-long ON_PERIOD = 5000;  // 5 seconds
+long PERIOD = 5000;  // 5 seconds
 
 void setup() {                
-  onButton = onButton(ON_PIN);
-  offButton = offButton(OFF_PIN);
-  offDelay = offDelay(ON_PERIOD);
-  relay = relay(RELAY_PIN);
+  onButton.setup(ON_PIN);
+  offButton.setup(OFF_PIN);
+  offDelay.setup(PERIOD);
+  relay.setup(RELAY_PIN);
 }
 
 void loop() {
   if (relay.isOn()){
-    if(offDelay.check() || offButton.wasPressed()){
+    if(offDelay.ok() || offButton.wasPressed()){
       relay.off();
     }
   } else {  // (relay.isOff()
