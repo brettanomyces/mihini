@@ -4,15 +4,16 @@ Relay::Relay(){
 }
 
 void Relay::setup(int _pin){
-  setup(_pin, "relay", 0);
+  setup(_pin, "relay", 0, LOW);
 }
 
-void Relay::setup(int _pin, String _name, long _delay) {
+void Relay::setup(int _pin, String _name, long _delay, uint8_t _on_level) {
+  m_on_level = _on_level;
   m_name = _name;
 
   m_pin = _pin;
   pinMode(m_pin, OUTPUT);
-  digitalWrite(m_pin, HIGH);
+  digitalWrite(m_pin, offLevel());
 
   m_on = false;
 
@@ -22,37 +23,26 @@ void Relay::setup(int _pin, String _name, long _delay) {
 
 void Relay::on(){
   if(!m_on){
+    // relay not already on
     if(m_delay.ok()){
-      digitalWrite(m_pin, LOW);
+      // relay not in delay period
+      digitalWrite(m_pin, onLevel());
       m_on = true;
       m_delay.reset();
-      log("turned on");
-    } else {
-      log("waiting to turn on");
-    }
+    } 
   }
 }
 
 void Relay::off(){
   if(m_on){
+    // relay not already off
     if(m_delay.ok()){
-      digitalWrite(m_pin, HIGH);
+      // relay not in delay period
+      digitalWrite(m_pin, offLevel());
       m_on = false;
       m_delay.reset();
-      log("turned off");
-    } else {
-      log("waiting to turn off");
     }
   }
-}
-
-void Relay::log(String str){
-  Serial.print(m_name);
-  Serial.print("(");
-  Serial.print(m_pin);
-  Serial.print("): ");
-  Serial.print(str);
-  Serial.println();
 }
 
 bool Relay::isOn(){
@@ -65,4 +55,18 @@ bool Relay::waiting(){
   } else {
     return true;
   }
+}
+
+uint8_t Relay::onLevel() {
+  if (m_on_level == HIGH) {
+    return HIGH;
+  }
+  return LOW;
+}
+
+uint8_t Relay::offLevel() {
+  if (m_on_level == HIGH) {
+    return LOW;
+  }
+  return HIGH;
 }
