@@ -1,6 +1,7 @@
 #include "Button.h"
-#include "Delay.h"
 #include "Relay.h"
+#include "Delay.h"  // depended on by Relay
+#include "Countdown.h"
 
 Button onButton;
 Button offButton;
@@ -20,18 +21,15 @@ int LED_1_PIN = 6;  // on if time remaining > 30 min
 int LED_2_PIN = 7;  // on if time remainint > 60 min
 int LED_3_PIN = 8;  // on if time remainint > 1 hour 30 min
 
-long ON_PERIOD_INCREMENT = 1800000; // 30 minutes
-long ON_PERIOD_MAX = 7200000; // 2 hours
-long WAIT_PERIOD = 2000;  // 2 seconds, time to wait for more button presses
-
-long onPeriod;
+unsigned long ON_PERIOD_INCREMENT = 1800000; // 30 minutes
+unsigned long ON_PERIOD_MAX = 7200000; // 2 hours
+unsigned long WAIT_PERIOD = 2000;  // 2 seconds, time to wait for more button presses
+unsigned long onPeriod;
 
 void setup() {                
   onPeriod = 0;
   onButton.setup(ON_PIN);
   offButton.setup(OFF_PIN);
-  onCountdown.setup(0);
-  waitCountdown.setup(WAIT_PERIOD);
   relay.setup(RELAY_PIN);
   digitalWrite(LED_0_PIN, LOW);
   digitalWrite(LED_1_PIN, LOW);
@@ -40,7 +38,7 @@ void setup() {
 }
 
 void loop() {
-  long onRemaining = onCountdown.remaining();
+  unsigned long onRemaining = onCountdown.remaining();
   displayOnRemaining(onRemaining);
   if (relay.isOn()){
     if(onRemaining == 0 || offButton.wasPressed()){
@@ -48,21 +46,21 @@ void loop() {
     }
   } else {  // relay is off 
     if (onButton.wasPressed()){
-      if (onTime < ON_PERIOD_MAX){
+      if (onPeriod < ON_PERIOD_MAX){
         onPeriod += ON_PERIOD_INCREMENT;
       }
-      waitCountdown.start(WAIT_TIME);
+      waitCountdown.reset(WAIT_PERIOD);
     }
     if (waitCountdown.remaining() == 0){
       // turn on
       relay.on();
-      onCountdown.start(onPeriod);
+      onCountdown.reset(onPeriod);
       onPeriod = 0;  // reset on period
     }
   }
 }
 
-void displayOnRemaining(long _remaining){
+void displayOnRemaining(unsigned long _remaining){
   if (_remaining > 3 * ON_PERIOD_INCREMENT) {
     digitalWrite(LED_3_PIN, HIGH);
   } else {
