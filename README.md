@@ -6,7 +6,7 @@ Originally created to turn off my broken dryer, hence the (Māori) name.
 
 ## Description
 
-Operate a relay module via an an arduino and two buttons, on and off.
+Operate a relay module via an arduino and two buttons, on and off.
 
 If a user presses the on button the relay will turn on and stay on for 
 a period of X.
